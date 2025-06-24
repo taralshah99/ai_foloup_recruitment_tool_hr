@@ -7,6 +7,7 @@ import {
   createUserPrompt,
 } from "@/lib/prompts/generate-insights";
 import { logger } from "@/lib/logger";
+import { Response } from "@/types/response";
 
 export async function POST(req: Request, res: Response) {
   logger.info("generate-insights request received");
@@ -17,8 +18,8 @@ export async function POST(req: Request, res: Response) {
 
   let callSummaries = "";
   if (responses) {
-    responses.forEach((response) => {
-      callSummaries += response.details?.call_analysis?.call_summary;
+    responses.forEach((response: { details?: { call_analysis?: { call_summary?: string } } }) => {
+      callSummaries += response.details?.call_analysis?.call_summary || "";
     });
   }
 
