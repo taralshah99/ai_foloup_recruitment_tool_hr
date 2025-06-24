@@ -10,7 +10,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
 import { useInterviews } from "@/contexts/interviews.context";
-import { InterviewService } from "@/services/interviews.service";
+import { updateInterview, deleteInterview } from "@/services/interviews.service";
 import { CardTitle } from "../../ui/card";
 import Image from "next/image";
 import { toast } from "sonner";
@@ -115,7 +115,7 @@ function EditInterview({ interview }: EditInterviewProps) {
       if (!interview) {
         return;
       }
-      const response = await InterviewService.updateInterview(
+      const response = await updateInterview(
         interviewData,
         interview?.id,
       );
@@ -137,7 +137,7 @@ function EditInterview({ interview }: EditInterviewProps) {
     }
 
     try {
-      await InterviewService.deleteInterview(interview.id);
+      await deleteInterview(interview.id);
       router.push("/dashboard");
     } catch (error) {
       console.error("Error deleting interview:", error);

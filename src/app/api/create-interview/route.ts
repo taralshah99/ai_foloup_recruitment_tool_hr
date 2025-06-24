@@ -1,6 +1,6 @@
 import { nanoid } from "nanoid";
 import { NextResponse } from "next/server";
-import { InterviewService } from "@/services/interviews.service";
+import { createInterview } from "@/services/interviews.service";
 import { logger } from "@/lib/logger";
 
 const base_url = process.env.NEXT_PUBLIC_LIVE_URL;
@@ -24,7 +24,7 @@ export async function POST(req: Request, res: Response) {
       readableSlug = `${orgNameSlug}-${interviewNameSlug}`;
     }
 
-    const newInterview = await InterviewService.createInterview({
+    const newInterview = await createInterview({
       ...payload,
       url: url,
       id: url_id,

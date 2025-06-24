@@ -5,7 +5,7 @@ import { useOrganization } from "@clerk/nextjs";
 import InterviewCard from "@/components/dashboard/interview/interviewCard";
 import CreateInterviewCard from "@/components/dashboard/interview/createInterviewCard";
 import { Card, CardContent, CardTitle } from "@/components/ui/card";
-import { InterviewService } from "@/services/interviews.service";
+import { deactivateInterviewsByOrgId } from "@/services/interviews.service";
 import { ClientService } from "@/services/clients.service";
 import { ResponseService } from "@/services/responses.service";
 import { useInterviews } from "@/contexts/interviews.context";
@@ -72,7 +72,7 @@ function Interviews() {
         const hasExceededLimit = totalResponses >= allowedResponsesCount;
         if (hasExceededLimit) {
           setCurrentPlan("free_trial_over");
-          await InterviewService.deactivateInterviewsByOrgId(organization.id);
+          await deactivateInterviewsByOrgId(organization.id);
           await ClientService.updateOrganization(
             { plan: "free_trial_over" },
             organization.id,

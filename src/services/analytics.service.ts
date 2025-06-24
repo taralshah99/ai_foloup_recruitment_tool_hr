@@ -2,7 +2,7 @@
 
 import { OpenAI } from "openai";
 import { ResponseService } from "@/services/responses.service";
-import { InterviewService } from "@/services/interviews.service";
+import { getInterviewById } from "@/services/interviews.service";
 import { Question } from "@/types/interview";
 import { Analytics } from "@/types/response";
 import {
@@ -19,7 +19,7 @@ export const generateInterviewAnalytics = async (payload: {
 
   try {
     const response = await ResponseService.getResponseByCallId(callId);
-    const interview = await InterviewService.getInterviewById(interviewId);
+    const interview = await getInterviewById(interviewId);
 
     if (response.analytics) {
       return { analytics: response.analytics as Analytics, status: 200 };

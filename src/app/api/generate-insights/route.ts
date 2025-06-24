@@ -1,7 +1,8 @@
 import { OpenAI } from "openai";
 import { NextResponse } from "next/server";
 import { ResponseService } from "@/services/responses.service";
-import { InterviewService } from "@/services/interviews.service";
+import { getInterviewById } from "@/services/interviews.service";
+import { updateInterview } from "@/services/interviews.service";
 import {
   SYSTEM_PROMPT,
   createUserPrompt,
@@ -14,7 +15,7 @@ export async function POST(req: Request, res: Response) {
   const body = await req.json();
 
   const responses = await ResponseService.getAllResponses(body.interviewId);
-  const interview = await InterviewService.getInterviewById(body.interviewId);
+  const interview = await getInterviewById(body.interviewId);
 
   let callSummaries = "";
   if (responses) {
@@ -56,7 +57,7 @@ export async function POST(req: Request, res: Response) {
     const content = basePromptOutput.message?.content || "";
     const insightsResponse = JSON.parse(content);
 
-    await InterviewService.updateInterview(
+    await updateInterview(
       { insights: insightsResponse.insights },
       body.interviewId,
     );

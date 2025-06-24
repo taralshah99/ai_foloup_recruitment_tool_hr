@@ -15,7 +15,7 @@ import { Response } from "@/types/response";
 import { formatTimestampToDateHHMM } from "@/lib/utils";
 import CallInfo from "@/components/call/callInfo";
 import SummaryInfo from "@/components/dashboard/interview/summaryInfo";
-import { InterviewService } from "@/services/interviews.service";
+import { updateInterview } from "@/services/interviews.service";
 import EditInterview from "@/components/dashboard/interview/editInterview";
 import Modal from "@/components/dashboard/Modal";
 import { toast } from "sonner";
@@ -170,7 +170,7 @@ function InterviewHome({ params, searchParams }: Props) {
       const updatedIsActive = !isActive;
       setIsActive(updatedIsActive);
 
-      await InterviewService.updateInterview(
+      await updateInterview(
         { is_active: updatedIsActive },
         params.interviewId,
       );
@@ -193,7 +193,7 @@ function InterviewHome({ params, searchParams }: Props) {
 
   const handleThemeColorChange = async (newColor: string) => {
     try {
-      await InterviewService.updateInterview(
+      await updateInterview(
         { theme_color: newColor },
         params.interviewId,
       );

@@ -1,7 +1,7 @@
 "use server";
 import pool from "@/lib/db";
 
-const getAllInterviews = async (userId: string, organizationId: string) => {
+export const getAllInterviews = async (userId: string, organizationId: string) => {
   try {
     const query = `SELECT * FROM interview WHERE organization_id = $1 OR user_id = $2 ORDER BY created_at DESC`;
     const { rows } = await pool.query(query, [organizationId, userId]);
@@ -14,7 +14,7 @@ const getAllInterviews = async (userId: string, organizationId: string) => {
   }
 };
 
-const getInterviewById = async (id: string) => {
+export const getInterviewById = async (id: string) => {
   try {
     const query = `SELECT * FROM interview WHERE id = $1 OR readable_slug = $1`;
     const { rows } = await pool.query(query, [id]);
@@ -27,7 +27,7 @@ const getInterviewById = async (id: string) => {
   }
 };
 
-const updateInterview = async (payload: any, id: string) => {
+export const updateInterview = async (payload: any, id: string) => {
   try {
     const keys = Object.keys(payload);
     const values = Object.values(payload);
@@ -43,7 +43,7 @@ const updateInterview = async (payload: any, id: string) => {
   }
 };
 
-const deleteInterview = async (id: string) => {
+export const deleteInterview = async (id: string) => {
   try {
     const query = `DELETE FROM interview WHERE id = $1 RETURNING *`;
     const { rows } = await pool.query(query, [id]);
@@ -56,7 +56,7 @@ const deleteInterview = async (id: string) => {
   }
 };
 
-const getAllRespondents = async (interviewId: string) => {
+export const getAllRespondents = async (interviewId: string) => {
   try {
     const query = `SELECT respondents FROM interview WHERE id = $1`;
     const { rows } = await pool.query(query, [interviewId]);
@@ -69,7 +69,7 @@ const getAllRespondents = async (interviewId: string) => {
   }
 };
 
-const createInterview = async (payload: any) => {
+export const createInterview = async (payload: any) => {
   try {
     const keys = Object.keys(payload);
     const values = Object.values(payload);
@@ -85,21 +85,11 @@ const createInterview = async (payload: any) => {
   }
 };
 
-const deactivateInterviewsByOrgId = async (organizationId: string) => {
+export const deactivateInterviewsByOrgId = async (organizationId: string) => {
   try {
     const query = `UPDATE interview SET is_active = false WHERE organization_id = $1 AND is_active = true`;
     await pool.query(query, [organizationId]);
   } catch (error) {
     console.error("Unexpected error disabling interviews:", error);
   }
-};
-
-export const InterviewService = {
-  getAllInterviews,
-  getInterviewById,
-  updateInterview,
-  deleteInterview,
-  getAllRespondents,
-  createInterview,
-  deactivateInterviewsByOrgId,
 };
