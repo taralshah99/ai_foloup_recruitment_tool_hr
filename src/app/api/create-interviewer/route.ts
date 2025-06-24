@@ -1,5 +1,5 @@
 import { logger } from "@/lib/logger";
-import { InterviewerService } from "@/services/interviewers.service";
+import { createInterviewer } from "@/services/interviewers.service";
 import { NextResponse, NextRequest } from "next/server";
 import Retell from "retell-sdk";
 import { INTERVIEWERS, RETELL_AGENT_GENERAL_PROMPT } from "@/lib/constants";
@@ -32,7 +32,7 @@ export async function GET(res: NextRequest) {
       agent_name: "Lisa",
     });
 
-    const newInterviewer = await InterviewerService.createInterviewer({
+    const newInterviewer = await createInterviewer({
       agent_id: newFirstAgent.agent_id,
       ...INTERVIEWERS.LISA,
     });
@@ -44,7 +44,7 @@ export async function GET(res: NextRequest) {
       agent_name: "Bob",
     });
 
-    const newSecondInterviewer = await InterviewerService.createInterviewer({
+    const newSecondInterviewer = await createInterviewer({
       agent_id: newSecondAgent.agent_id,
       ...INTERVIEWERS.BOB,
     });

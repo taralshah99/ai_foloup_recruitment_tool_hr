@@ -2,7 +2,7 @@
 
 import React, { useState, useContext, ReactNode, useEffect } from "react";
 import { Interviewer } from "@/types/interviewer";
-import { InterviewerService } from "@/services/interviewers.service";
+import { getAllInterviewers, createInterviewer, getInterviewer } from "@/services/interviewers.service";
 import { useClerk } from "@clerk/nextjs";
 
 interface InterviewerContextProps {
@@ -33,7 +33,7 @@ export function InterviewerProvider({ children }: InterviewerProviderProps) {
   const fetchInterviewers = async () => {
     try {
       setInterviewersLoading(true);
-      const response = await InterviewerService.getAllInterviewers(
+      const response = await getAllInterviewers(
         user?.id as string,
       );
       setInterviewers(response);
@@ -44,7 +44,7 @@ export function InterviewerProvider({ children }: InterviewerProviderProps) {
   };
 
   const createInterviewer = async (payload: any) => {
-    await InterviewerService.createInterviewer({ ...payload });
+    await createInterviewer({ ...payload });
     fetchInterviewers();
   };
 

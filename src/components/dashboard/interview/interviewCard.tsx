@@ -8,7 +8,7 @@ import { CopyCheck } from "lucide-react";
 import { ResponseService } from "@/services/responses.service";
 import axios from "axios";
 import MiniLoader from "@/components/loaders/mini-loader/miniLoader";
-import { InterviewerService } from "@/services/interviewers.service";
+import { getInterviewer } from "@/services/interviewers.service";
 
 interface Props {
   name: string | null;
@@ -29,7 +29,7 @@ function InterviewCard({ name, interviewerId, id, url, readableSlug }: Props) {
   useEffect(() => {
     const fetchInterviewer = async () => {
       const interviewer =
-        await InterviewerService.getInterviewer(interviewerId);
+        await getInterviewer(interviewerId);
       setImg(interviewer.image);
     };
     fetchInterviewer();

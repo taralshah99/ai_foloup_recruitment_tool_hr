@@ -1,7 +1,7 @@
 "use server";
 import pool from "@/lib/db";
 
-const getAllInterviewers = async (clientId: string = "") => {
+export const getAllInterviewers = async (clientId: string = "") => {
   try {
     const query = `SELECT * FROM interviewer`;
     const { rows } = await pool.query(query);
@@ -14,7 +14,7 @@ const getAllInterviewers = async (clientId: string = "") => {
   }
 };
 
-const createInterviewer = async (payload: any) => {
+export const createInterviewer = async (payload: any) => {
   try {
     // Check for existing interviewer with the same name and agent_id
     const checkQuery = `SELECT * FROM interviewer WHERE name = $1 AND agent_id = $2`;
@@ -38,7 +38,7 @@ const createInterviewer = async (payload: any) => {
   }
 };
 
-const getInterviewer = async (interviewerId: bigint) => {
+export const getInterviewer = async (interviewerId: bigint) => {
   try {
     const query = `SELECT * FROM interviewer WHERE id = $1`;
     const { rows } = await pool.query(query, [interviewerId]);
@@ -49,10 +49,4 @@ const getInterviewer = async (interviewerId: bigint) => {
     
     return null;
   }
-};
-
-export const InterviewerService = {
-  getAllInterviewers,
-  createInterviewer,
-  getInterviewer,
 };

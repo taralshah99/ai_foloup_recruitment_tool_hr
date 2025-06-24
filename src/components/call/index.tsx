@@ -36,7 +36,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
-import { InterviewerService } from "@/services/interviewers.service";
+import { getInterviewer } from "@/services/interviewers.service";
 
 const webClient = new RetellWebClient();
 
@@ -252,7 +252,7 @@ function Call({ interview }: InterviewProps) {
 
   useEffect(() => {
     const fetchInterviewer = async () => {
-      const interviewer = await InterviewerService.getInterviewer(
+      const interviewer = await getInterviewer(
         interview.interviewer_id,
       );
       setInterviewerImg(interviewer.image);
