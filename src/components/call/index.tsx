@@ -206,7 +206,7 @@ function Call({ interview }: InterviewProps) {
 
     const oldUserEmails: string[] = (
       await ResponseService.getAllEmails(interview.id)
-    ).map((item) => item.email);
+    ).map((item: { email: string }) => item.email);
     const OldUser =
       oldUserEmails.includes(email) ||
       (interview?.respondents && !interview?.respondents.includes(email));
