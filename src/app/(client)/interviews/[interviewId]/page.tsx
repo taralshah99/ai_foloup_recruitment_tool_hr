@@ -8,7 +8,8 @@ import { useInterviews } from "@/contexts/interviews.context";
 import { Share2, Filter, Pencil, UserIcon, Eye, Palette } from "lucide-react";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { useRouter } from "next/navigation";
-import { ResponseService } from "@/services/responses.service";
+import { getAllResponses } from "@/services/responses.service";
+import { saveResponse } from "@/services/responses.service";
 import { ClientService } from "@/services/clients.service";
 import { Interview } from "@/types/interview";
 import { Response } from "@/types/response";
@@ -123,7 +124,7 @@ function InterviewHome({ params, searchParams }: Props) {
   useEffect(() => {
     const fetchResponses = async () => {
       try {
-        const response = await ResponseService.getAllResponses(
+        const response = await getAllResponses(
           params.interviewId,
         );
         setResponses(response);
@@ -152,7 +153,7 @@ function InterviewHome({ params, searchParams }: Props) {
 
   const handleResponseClick = async (response: Response) => {
     try {
-      await ResponseService.saveResponse({ is_viewed: true }, response.call_id);
+      await saveResponse({ is_viewed: true }, response.call_id);
       if (responses) {
         const updatedResponses = responses.map((r) =>
           r.call_id === response.call_id ? { ...r, is_viewed: true } : r,

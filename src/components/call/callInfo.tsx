@@ -8,7 +8,7 @@ import ReactAudioPlayer from "react-audio-player";
 import { DownloadIcon, TrashIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
-import { ResponseService } from "@/services/responses.service";
+import { getResponseByCallId, updateResponse, deleteResponse } from "@/services/responses.service";
 import { useRouter } from "next/navigation";
 import LoaderWithText from "@/components/loaders/loader-with-text/loaderWithText";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
@@ -86,7 +86,7 @@ function CallInfo({
     const fetchEmail = async () => {
       setIsLoading(true);
       try {
-        const response = await ResponseService.getResponseByCallId(call_id);
+        const response = await getResponseByCallId(call_id);
         setEmail(response.email);
         setName(response.name);
         setCandidateStatus(response.candidate_status);
@@ -126,12 +126,12 @@ function CallInfo({
 
   const onDeleteResponseClick = async () => {
     try {
-      const response = await ResponseService.getResponseByCallId(call_id);
+      const response = await getResponseByCallId(call_id);
 
       if (response) {
         const interview_id = response.interview_id;
 
-        await ResponseService.deleteResponse(call_id);
+        await deleteResponse(call_id);
 
         router.push(`/interviews/${interview_id}`);
 
@@ -203,7 +203,7 @@ function CallInfo({
                       value={candidateStatus}
                       onValueChange={async (newValue: string) => {
                         setCandidateStatus(newValue);
-                        await ResponseService.updateResponse(
+                        await updateResponse(
                           { candidate_status: newValue },
                           call_id,
                         );

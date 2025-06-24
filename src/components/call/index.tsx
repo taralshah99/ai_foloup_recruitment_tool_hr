@@ -16,7 +16,7 @@ import { RetellWebClient } from "retell-client-js-sdk";
 import MiniLoader from "../loaders/mini-loader/miniLoader";
 import { toast } from "sonner";
 import { isLightColor, testEmail } from "@/lib/utils";
-import { ResponseService } from "@/services/responses.service";
+import { getAllEmailAddressesForInterview, saveResponse } from "@/services/responses.service";
 import { Interview } from "@/types/interview";
 import { FeedbackData } from "@/types/response";
 import { FeedbackService } from "@/services/feedback.service";
@@ -205,7 +205,7 @@ function Call({ interview }: InterviewProps) {
     setLoading(true);
 
     const oldUserEmails: string[] = (
-      await ResponseService.getAllEmails(interview.id)
+      await getAllEmailAddressesForInterview(interview.id)
     ).map((item: { email: string }) => item.email);
     const OldUser =
       oldUserEmails.includes(email) ||
@@ -264,7 +264,7 @@ function Call({ interview }: InterviewProps) {
   useEffect(() => {
     if (isEnded) {
       const updateInterview = async () => {
-        await ResponseService.saveResponse(
+        await saveResponse(
           { is_ended: true, tab_switch_count: tabSwitchCount },
           callId,
         );

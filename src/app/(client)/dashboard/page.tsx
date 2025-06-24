@@ -7,7 +7,7 @@ import CreateInterviewCard from "@/components/dashboard/interview/createIntervie
 import { Card, CardContent, CardTitle } from "@/components/ui/card";
 import { deactivateInterviewsByOrgId } from "@/services/interviews.service";
 import { ClientService } from "@/services/clients.service";
-import { ResponseService } from "@/services/responses.service";
+import { getResponseCountByOrganizationId } from "@/services/responses.service";
 import { useInterviews } from "@/contexts/interviews.context";
 import Modal from "@/components/dashboard/Modal";
 import { Gem, Plus } from "lucide-react";
@@ -66,7 +66,7 @@ function Interviews() {
       setLoading(true);
       try {
         const totalResponses =
-          await ResponseService.getResponseCountByOrganizationId(
+          await getResponseCountByOrganizationId(
             organization.id,
           );
         const hasExceededLimit = totalResponses >= allowedResponsesCount;

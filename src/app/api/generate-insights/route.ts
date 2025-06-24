@@ -1,20 +1,18 @@
 import { OpenAI } from "openai";
 import { NextResponse } from "next/server";
-import { ResponseService } from "@/services/responses.service";
-import { getInterviewById } from "@/services/interviews.service";
-import { updateInterview } from "@/services/interviews.service";
+import { getAllResponses } from "@/services/responses.service";
+import { getInterviewById, updateInterview } from "@/services/interviews.service";
 import {
   SYSTEM_PROMPT,
   createUserPrompt,
 } from "@/lib/prompts/generate-insights";
 import { logger } from "@/lib/logger";
-import { Response } from "@/types/response";
 
 export async function POST(req: Request, res: Response) {
   logger.info("generate-insights request received");
   const body = await req.json();
 
-  const responses = await ResponseService.getAllResponses(body.interviewId);
+  const responses = await getAllResponses(body.interviewId);
   const interview = await getInterviewById(body.interviewId);
 
   let callSummaries = "";

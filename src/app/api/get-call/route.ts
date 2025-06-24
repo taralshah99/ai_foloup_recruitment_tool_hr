@@ -1,6 +1,6 @@
 import { logger } from "@/lib/logger";
 import { generateInterviewAnalytics } from "@/services/analytics.service";
-import { ResponseService } from "@/services/responses.service";
+import { getResponseByCallId, saveResponse } from "@/services/responses.service";
 import { Response } from "@/types/response";
 import { NextResponse } from "next/server";
 import Retell from "retell-sdk";
@@ -13,7 +13,7 @@ export async function POST(req: Request, res: Response) {
   logger.info("get-call request received");
   const body = await req.json();
 
-  const callDetails: Response = await ResponseService.getResponseByCallId(
+  const callDetails: Response = await getResponseByCallId(
     body.id,
   );
   let callResponse = callDetails.details;
@@ -42,7 +42,7 @@ export async function POST(req: Request, res: Response) {
 
   const analytics = result.analytics;
 
-  await ResponseService.saveResponse(
+  await saveResponse(
     {
       details: callResponse,
       is_analysed: true,

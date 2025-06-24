@@ -1,7 +1,7 @@
 "use server";
 import pool from "@/lib/db";
 
-const createResponse = async (payload: any) => {
+export const createResponse = async (payload: any) => {
   try {
     const keys = Object.keys(payload);
     const values = Object.values(payload);
@@ -17,7 +17,7 @@ const createResponse = async (payload: any) => {
   }
 };
 
-const saveResponse = async (payload: any, call_id: string) => {
+export const saveResponse = async (payload: any, call_id: string) => {
   try {
     const keys = Object.keys(payload);
     const values = Object.values(payload);
@@ -33,7 +33,7 @@ const saveResponse = async (payload: any, call_id: string) => {
   }
 };
 
-const getAllResponses = async (interviewId: string) => {
+export const getAllResponses = async (interviewId: string) => {
   try {
     const query = `SELECT * FROM response WHERE interview_id = $1 AND is_ended = true AND (details IS NULL OR details->'call_analysis' IS NOT NULL) ORDER BY created_at DESC`;
     const { rows } = await pool.query(query, [interviewId]);
@@ -46,7 +46,7 @@ const getAllResponses = async (interviewId: string) => {
   }
 };
 
-const getResponseCountByOrganizationId = async (organizationId: string): Promise<number> => {
+export const getResponseCountByOrganizationId = async (organizationId: string): Promise<number> => {
   try {
     const query = `SELECT COUNT(r.id) FROM interview i LEFT JOIN response r ON i.id = r.interview_id WHERE i.organization_id = $1`;
     const { rows } = await pool.query(query, [organizationId]);
@@ -59,7 +59,7 @@ const getResponseCountByOrganizationId = async (organizationId: string): Promise
   }
 };
 
-const getAllEmailAddressesForInterview = async (interviewId: string) => {
+export const getAllEmailAddressesForInterview = async (interviewId: string) => {
   try {
     const query = `SELECT email FROM response WHERE interview_id = $1`;
     const { rows } = await pool.query(query, [interviewId]);
@@ -72,7 +72,7 @@ const getAllEmailAddressesForInterview = async (interviewId: string) => {
   }
 };
 
-const getResponseByCallId = async (id: string) => {
+export const getResponseByCallId = async (id: string) => {
   try {
     const query = `SELECT * FROM response WHERE call_id = $1`;
     const { rows } = await pool.query(query, [id]);
@@ -85,7 +85,7 @@ const getResponseByCallId = async (id: string) => {
   }
 };
 
-const deleteResponse = async (id: string) => {
+export const deleteResponse = async (id: string) => {
   try {
     const query = `DELETE FROM response WHERE call_id = $1 RETURNING *`;
     const { rows } = await pool.query(query, [id]);
@@ -98,7 +98,7 @@ const deleteResponse = async (id: string) => {
   }
 };
 
-const updateResponse = async (payload: any, call_id: string) => {
+export const updateResponse = async (payload: any, call_id: string) => {
   try {
     const keys = Object.keys(payload);
     const values = Object.values(payload);
@@ -112,15 +112,4 @@ const updateResponse = async (payload: any, call_id: string) => {
     
     return [];
   }
-};
-
-export const ResponseService = {
-  createResponse,
-  saveResponse,
-  updateResponse,
-  getAllResponses,
-  getResponseByCallId,
-  deleteResponse,
-  getResponseCountByOrganizationId,
-  getAllEmails: getAllEmailAddressesForInterview,
 };

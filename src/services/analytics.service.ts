@@ -1,7 +1,16 @@
 "use server";
 
 import { OpenAI } from "openai";
-import { ResponseService } from "@/services/responses.service";
+import { 
+  createResponse, 
+  saveResponse, 
+  updateResponse, 
+  getAllResponses, 
+  getResponseByCallId, 
+  deleteResponse, 
+  getResponseCountByOrganizationId, 
+  getAllEmailAddressesForInterview 
+} from "@/services/responses.service";
 import { getInterviewById } from "@/services/interviews.service";
 import { Question } from "@/types/interview";
 import { Analytics } from "@/types/response";
@@ -18,7 +27,7 @@ export const generateInterviewAnalytics = async (payload: {
   const { callId, interviewId, transcript } = payload;
 
   try {
-    const response = await ResponseService.getResponseByCallId(callId);
+    const response = await getResponseByCallId(callId);
     const interview = await getInterviewById(interviewId);
 
     if (response.analytics) {
