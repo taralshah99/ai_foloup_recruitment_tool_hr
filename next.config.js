@@ -10,12 +10,6 @@ const nextConfig = {
     ];
   },
   images: {
-    remotePatterns: [
-      {
-        protocol: "https",
-        hostname: "img.clerk.com",
-      },
-    ],
   },
   webpack: (webpackConfig, { webpack }) => {
     webpackConfig.plugins.push(

@@ -5,7 +5,6 @@ import { Inter } from "next/font/google";
 import { cn } from "@/lib/utils";
 import Navbar from "@/components/navbar";
 import Providers from "@/components/providers";
-import { ClerkProvider } from "@clerk/nextjs";
 import { Toaster } from "sonner";
 import SideMenu from "@/components/sideMenu";
 import { usePathname } from "next/navigation";
@@ -51,20 +50,14 @@ export default function RootLayout({
           "antialiased overflow-hidden min-h-screen",
         )}
       >
-        <ClerkProvider
-          signInFallbackRedirectUrl={"/dashboard"}
-          afterSignOutUrl={"/sign-in"}
-        >
           <Providers>
-            {!pathname.includes("/sign-in") &&
-              !pathname.includes("/sign-up") && <Navbar />}
             <div className="flex flex-row h-screen">
-              {!pathname.includes("/sign-in") &&
-                !pathname.includes("/sign-up") && <SideMenu />}
+              <SideMenu />
               <div className="ml-[200px] pt-[64px] h-full overflow-y-auto flex-grow">
                 {children}
               </div>
             </div>
+            <Navbar />
             <Toaster
               toastOptions={{
                 classNames: {
@@ -78,7 +71,6 @@ export default function RootLayout({
               }}
             />
           </Providers>
-        </ClerkProvider>
       </body>
     </html>
   );

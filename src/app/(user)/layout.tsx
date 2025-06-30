@@ -1,10 +1,8 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "../globals.css";
-import { ClerkProvider } from "@clerk/nextjs";
 import Providers from "@/components/providers";
 import { Toaster } from "sonner";
-
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -37,7 +35,11 @@ export default function RootLayout({
         <link rel="icon" href="/browser-user-icon.ico" />
       </head>
       <body className={inter.className}>
-        <ClerkProvider>
+        <div className="flex flex-row h-screen">
+          <div className="ml-[200px] pt-[64px] h-full overflow-y-auto flex-grow">
+            {children}
+          </div>
+        </div>
           <Providers>
             {children}
             <Toaster
@@ -53,7 +55,7 @@ export default function RootLayout({
               }}
             />
           </Providers>
-        </ClerkProvider>
+
       </body>
     </html>
   );
