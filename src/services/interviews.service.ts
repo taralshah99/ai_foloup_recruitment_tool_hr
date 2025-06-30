@@ -5,9 +5,11 @@ export const getAllInterviews = async () => {
   try {
     const query = `SELECT * FROM interview ORDER BY created_at DESC`;
     const { rows } = await pool.query(query);
+    
     return rows || [];
   } catch (error) {
     console.error(error);
+    
     return [];
   }
 };
