@@ -47,8 +47,6 @@ interface Props {
   };
 }
 
-const base_url = process.env.NEXT_PUBLIC_LIVE_URL;
-
 function InterviewHome({ params, searchParams }: Props) {
   const [interview, setInterview] = useState<Interview>();
   const [responses, setResponses] = useState<Response[]>();
@@ -67,10 +65,9 @@ function InterviewHome({ params, searchParams }: Props) {
   const [filterStatus, setFilterStatus] = useState<string>("ALL");
 
   const seeInterviewPreviewPage = () => {
-    const protocol = base_url?.includes("localhost") ? "http" : "https";
     if (interview?.url) {
       const url = interview?.readable_slug
-        ? `${protocol}://${base_url}/call/${interview?.readable_slug}`
+        ? `https://${interview?.readable_slug}`
         : interview.url.startsWith("http")
           ? interview.url
           : `https://${interview.url}`;
@@ -103,22 +100,6 @@ function InterviewHome({ params, searchParams }: Props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [getInterviewById, params.interviewId, isGeneratingInsights]);
 
-  useEffect(() => {
-    const fetchOrganizationData = async () => {
-      try {
-        if (organization?.id) {
-          const data = await ClientService.getOrganizationById(organization.id);
-          if (data?.plan) {
-            setCurrentPlan(data.plan);
-          }
-        }
-      } catch (error) {
-        console.error("Error fetching organization data:", error);
-      }
-    };
-
-    fetchOrganizationData();
-  }, [organization]);
   useEffect(() => {
     const fetchResponses = async () => {
       try {
@@ -582,7 +563,7 @@ function InterviewHome({ params, searchParams }: Props) {
           open={isSharePopupOpen}
           shareContent={
             interview?.readable_slug
-              ? `${base_url}/call/${interview?.readable_slug}`
+              ? `https://${interview?.readable_slug}`
               : (interview?.url as string)
           }
           onClose={closeSharePopup}
