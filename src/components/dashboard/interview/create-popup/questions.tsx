@@ -1,7 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
-import { useClerk, useOrganization } from "@clerk/nextjs";
 import { InterviewBase, Question } from "@/types/interview";
 import { useInterviews } from "@/contexts/interviews.context";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -17,8 +16,6 @@ interface Props {
 }
 
 function QuestionsPopup({ interviewData, setProceed, setOpen }: Props) {
-  const { user } = useClerk();
-  const { organization } = useOrganization();
   const [isClicked, setIsClicked] = useState(false);
 
   const [questions, setQuestions] = useState<Question[]>(
@@ -66,9 +63,6 @@ function QuestionsPopup({ interviewData, setProceed, setOpen }: Props) {
 
   const onSave = async () => {
     try {
-      interviewData.user_id = user?.id || "";
-      interviewData.organization_id = organization?.id || "";
-
       interviewData.questions = questions;
       interviewData.description = description;
 
@@ -77,11 +71,11 @@ function QuestionsPopup({ interviewData, setProceed, setOpen }: Props) {
         ...interviewData,
         interviewer_id: interviewData.interviewer_id.toString(),
         response_count: interviewData.response_count.toString(),
-        logo_url: organization?.imageUrl || "",
+        logo_url: "",
       };
 
       const response = await axios.post("/api/create-interview", {
-        organizationName: organization?.name,
+        organizationName: "",
         interviewData: sanitizedInterviewData,
       });
       setIsClicked(false);

@@ -1,6 +1,5 @@
 import Link from "next/link";
 import React from "react";
-import { OrganizationSwitcher, UserButton } from "@clerk/nextjs";
 
 function Navbar() {
   return (
@@ -15,21 +14,11 @@ function Navbar() {
           </Link>
           <p className="my-auto text-xl">/</p>
           <div className="my-auto">
-            <OrganizationSwitcher
-              afterCreateOrganizationUrl="/dashboard"
-              hidePersonal={true}
-              afterSelectOrganizationUrl="/dashboard"
-              afterLeaveOrganizationUrl="/dashboard"
-              appearance={{
-                variables: {
-                  fontSize: "0.9rem",
-                },
-              }}
-            />
+            {/* Placeholder for the removed OrganizationSwitcher */}
           </div>
         </div>
         <div className="flex items-center">
-          <UserButton afterSignOutUrl="/sign-in" signInUrl="/sign-in" />
+          {/* Placeholder for the removed UserButton */}
         </div>
       </div>
     </div>

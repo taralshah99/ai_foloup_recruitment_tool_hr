@@ -3,7 +3,6 @@
 import React, { useState, useContext, ReactNode, useEffect } from "react";
 import { Interview } from "@/types/interview";
 import { getAllInterviews, getInterviewById as getInterviewByIdService } from "@/services/interviews.service";
-import { useClerk, useOrganization } from "@clerk/nextjs";
 
 interface InterviewContextProps {
   interviews: Interview[];
@@ -29,17 +28,12 @@ interface InterviewProviderProps {
 
 export function InterviewProvider({ children }: InterviewProviderProps) {
   const [interviews, setInterviews] = useState<Interview[]>([]);
-  const { user } = useClerk();
-  const { organization } = useOrganization();
   const [interviewsLoading, setInterviewsLoading] = useState(false);
 
   const fetchInterviews = async () => {
     try {
       setInterviewsLoading(true);
-      const response = await getAllInterviews(
-        user?.id as string,
-        organization?.id as string,
-      );
+      const response = await getAllInterviews();
       setInterviewsLoading(false);
       setInterviews(response);
     } catch (error) {
@@ -55,11 +49,8 @@ export function InterviewProvider({ children }: InterviewProviderProps) {
   };
 
   useEffect(() => {
-    if (organization?.id || user?.id) {
-      fetchInterviews();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [organization?.id, user?.id]);
+    fetchInterviews();
+  }, []);
 
   return (
     <InterviewContext.Provider

@@ -3,7 +3,6 @@
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
 import React, { useState, useEffect } from "react";
-import { useOrganization } from "@clerk/nextjs";
 import { useInterviews } from "@/contexts/interviews.context";
 import { Share2, Filter, Pencil, UserIcon, Eye, Palette } from "lucide-react";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -65,7 +64,6 @@ function InterviewHome({ params, searchParams }: Props) {
   const [showColorPicker, setShowColorPicker] = useState<boolean>(false);
   const [themeColor, setThemeColor] = useState<string>("#4F46E5");
   const [iconColor, seticonColor] = useState<string>("#4F46E5");
-  const { organization } = useOrganization();
   const [filterStatus, setFilterStatus] = useState<string>("ALL");
 
   const seeInterviewPreviewPage = () => {

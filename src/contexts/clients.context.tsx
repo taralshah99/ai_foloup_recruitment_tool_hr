@@ -2,7 +2,6 @@
 
 import React, { useState, useContext, ReactNode, useEffect } from "react";
 import { User } from "@/types/user";
-import { useClerk, useOrganization } from "@clerk/nextjs";
 import { ClientService } from "@/services/clients.service";
 
 interface ClientContextProps {
@@ -19,8 +18,6 @@ interface ClientProviderProps {
 
 export function ClientProvider({ children }: ClientProviderProps) {
   const [client, setClient] = useState<User>();
-  const { user } = useClerk();
-  const { organization } = useOrganization();
 
   const [clientLoading, setClientLoading] = useState(true);
 
@@ -28,9 +25,9 @@ export function ClientProvider({ children }: ClientProviderProps) {
     try {
       setClientLoading(true);
       const response = await ClientService.getClientById(
-        user?.id as string,
-        user?.emailAddresses[0]?.emailAddress as string,
-        organization?.id as string,
+        "defaultUserId",
+        "defaultUserEmail@example.com",
+        "defaultOrganizationId",
       );
       setClient(response);
     } catch (error) {
@@ -43,8 +40,8 @@ export function ClientProvider({ children }: ClientProviderProps) {
     try {
       setClientLoading(true);
       const response = await ClientService.getOrganizationById(
-        organization?.id as string,
-        organization?.name as string,
+        "defaultOrganizationId",
+        "Default Organization",
       );
     } catch (error) {
       console.error(error);
@@ -53,18 +50,12 @@ export function ClientProvider({ children }: ClientProviderProps) {
   };
 
   useEffect(() => {
-    if (user?.id) {
-      fetchClient();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user?.id]);
+    fetchClient();
+  }, []);
 
   useEffect(() => {
-    if (organization?.id) {
-      fetchOrganization();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [organization?.id]);
+    fetchOrganization();
+  }, []);
 
   return (
     <ClientContext.Provider

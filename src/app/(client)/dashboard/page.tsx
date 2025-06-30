@@ -15,7 +15,6 @@ import Image from "next/image";
 
 function Interviews() {
   const { interviews, interviewsLoading } = useInterviews();
-  const { organization } = useOrganization();
   const [loading, setLoading] = useState<boolean>(false);
   const [currentPlan, setCurrentPlan] = useState<string>("");
   const [allowedResponsesCount, setAllowedResponsesCount] =
@@ -37,17 +36,15 @@ function Interviews() {
   useEffect(() => {
     const fetchOrganizationData = async () => {
       try {
-        if (organization?.id) {
-          const data = await ClientService.getOrganizationById(organization.id);
-          if (data?.plan) {
-            setCurrentPlan(data.plan);
-            if (data.plan === "free_trial_over") {
-              setIsModalOpen(true);
-            }
+        const data = await ClientService.getOrganizationById(organization.id);
+        if (data?.plan) {
+          setCurrentPlan(data.plan);
+          if (data.plan === "free_trial_over") {
+            setIsModalOpen(true);
           }
-          if (data?.allowed_responses_count) {
-            setAllowedResponsesCount(data.allowed_responses_count);
-          }
+        }
+        if (data?.allowed_responses_count) {
+          setAllowedResponsesCount(data.allowed_responses_count);
         }
       } catch (error) {
         console.error("Error fetching organization data:", error);
