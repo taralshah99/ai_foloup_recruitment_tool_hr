@@ -1,15 +1,13 @@
 "use server";
 import pool from "@/lib/db";
 
-export const getAllInterviews = async (userId: string, organizationId: string) => {
+export const getAllInterviews = async () => {
   try {
-    const query = `SELECT * FROM interview WHERE organization_id = $1 OR user_id = $2 ORDER BY created_at DESC`;
-    const { rows } = await pool.query(query, [organizationId, userId]);
-    
+    const query = `SELECT * FROM interview ORDER BY created_at DESC`;
+    const { rows } = await pool.query(query);
     return rows || [];
   } catch (error) {
     console.error(error);
-    
     return [];
   }
 };
