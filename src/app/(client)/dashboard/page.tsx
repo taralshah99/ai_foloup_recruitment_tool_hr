@@ -38,7 +38,7 @@ function Interviews() {
           Start getting responses now!
         </h3>
         <div className="relative flex items-center mt-1 flex-wrap">
-          <CreateInterviewCard />
+            <CreateInterviewCard />
           {interviewsLoading || loading ? (
             <InterviewsLoader />
           ) : (

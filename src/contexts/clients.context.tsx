@@ -50,11 +50,11 @@ export function ClientProvider({ children }: ClientProviderProps) {
   };
 
   useEffect(() => {
-    fetchClient();
+      fetchClient();
   }, []);
 
   useEffect(() => {
-    fetchOrganization();
+      fetchOrganization();
   }, []);
 
   return (
