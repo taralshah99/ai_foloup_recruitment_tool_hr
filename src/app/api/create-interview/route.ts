@@ -31,8 +31,15 @@ export async function POST(req: Request, res: Response) {
       readable_slug: readableSlug,
     });
 
-    logger.info("Interview created successfully");
+    if (!newInterview) {
+      logger.error("Interview creation failed: No row returned from DB");
+      return NextResponse.json(
+        { error: "Failed to create interview" },
+        { status: 500 },
+      );
+    }
 
+    logger.info("Interview created successfully");
     return NextResponse.json(
       { response: "Interview created successfully" },
       { status: 200 },

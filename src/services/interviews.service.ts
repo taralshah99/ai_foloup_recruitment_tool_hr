@@ -76,12 +76,16 @@ export const createInterview = async (payload: any) => {
     const placeholders = keys.map((_, i) => `$${i + 1}`).join(", ");
     const query = `INSERT INTO interview (${keys.join(", ")}) VALUES (${placeholders}) RETURNING *`;
     const { rows } = await pool.query(query, values);
-    
-    return rows;
+
+    if (!rows || rows.length === 0) {
+      console.error("Interview insert failed: No rows returned");
+      return null;
+    }
+
+    return rows[0];
   } catch (error) {
-    console.error(error);
-    
-    return [];
+    console.error("Error creating interview:", error);
+    return null;
   }
 };
 

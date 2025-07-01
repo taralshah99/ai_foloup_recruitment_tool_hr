@@ -9,6 +9,4 @@ const pool = new Pool({
   ssl: false as any,
 });
 
-console.log(pool);
-
 export default pool;
