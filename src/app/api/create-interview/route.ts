@@ -33,6 +33,7 @@ export async function POST(req: Request, res: Response) {
 
     if (!newInterview) {
       logger.error("Interview creation failed: No row returned from DB");
+      
       return NextResponse.json(
         { error: "Failed to create interview" },
         { status: 500 },
@@ -40,6 +41,7 @@ export async function POST(req: Request, res: Response) {
     }
 
     logger.info("Interview created successfully");
+    
     return NextResponse.json(
       { response: "Interview created successfully" },
       { status: 200 },

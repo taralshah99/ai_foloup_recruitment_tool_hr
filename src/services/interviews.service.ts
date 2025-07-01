@@ -79,12 +79,14 @@ export const createInterview = async (payload: any) => {
 
     if (!rows || rows.length === 0) {
       console.error("Interview insert failed: No rows returned");
+      
       return null;
     }
 
     return rows[0];
   } catch (error) {
     console.error("Error creating interview:", error);
+    
     return null;
   }
 };
