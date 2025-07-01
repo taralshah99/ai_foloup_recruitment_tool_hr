@@ -11,7 +11,7 @@ export async function POST(req: Request, res: Response) {
     const url = `${base_url}/call/${url_id}`;
     const body = await req.json();
 
-    logger.info("create-interview request received");
+    logger.info("create-interview request received successfully");
 
     const payload = body.interviewData;
 
@@ -24,8 +24,15 @@ export async function POST(req: Request, res: Response) {
       readableSlug = `${orgNameSlug}-${interviewNameSlug}`;
     }
 
+    const cleanPayload = { ...payload };
+    Object.keys(cleanPayload).forEach((key) => {
+      if (cleanPayload[key] === "") {
+        cleanPayload[key] = null;
+      }
+    });
+
     const newInterview = await createInterview({
-      ...payload,
+      ...cleanPayload,
       url: url,
       id: url_id,
       readable_slug: readableSlug,

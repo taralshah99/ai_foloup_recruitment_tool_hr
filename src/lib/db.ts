@@ -1,6 +1,4 @@
 import { Pool } from 'pg';
-import fs from 'fs';
-import path from 'path';
 
 // const caCert = fs.readFileSync('/home/azureuser/techifysolutions-ssl.crt').toString();
 
