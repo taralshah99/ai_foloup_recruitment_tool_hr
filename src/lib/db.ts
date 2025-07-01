@@ -1,8 +1,15 @@
 import { Pool } from 'pg';
+import fs from 'fs';
+import path from 'path';
+
+const caCert = fs.readFileSync('/home/azureuser/techifysolutions-ssl.crt').toString();
 
 const pool = new Pool({
   connectionString: process.env.AZURE_POSTGRES_CONNECTION_STRING,
-  ssl: { rejectUnauthorized: false }, // Azure often requires SSL
+  ssl: {
+    ca: caCert,
+    rejectUnauthorized: true,
+  } as any, // Typecast to fix linter error
 });
 
-export default pool; 
+export default pool;
