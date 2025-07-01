@@ -28,6 +28,12 @@ export async function POST(req: Request, res: Response) {
     Object.keys(cleanPayload).forEach((key) => {
       if (cleanPayload[key] === "") {
         cleanPayload[key] = null;
+      } else if (typeof cleanPayload[key] === "string" && (cleanPayload[key].startsWith('{') || cleanPayload[key].startsWith('['))) {
+        try {
+          cleanPayload[key] = JSON.parse(cleanPayload[key]);
+        } catch {
+          // leave as is if not valid JSON
+        }
       }
     });
 
