@@ -1,5 +1,5 @@
 import { nanoid } from "nanoid";
-import { v4 as uuidv4 } from "uuid";
+import { v4 as uuidv4, validate as validateUUID } from "uuid";
 import { NextResponse } from "next/server";
 import { createInterview } from "@/services/interviews.service";
 import { logger } from "@/lib/logger";

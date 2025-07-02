@@ -1,5 +1,6 @@
 "use server";
 import pool from "@/lib/db";
+import { validate as validateUUID } from "uuid";
 
 export const getAllInterviews = async () => {
   try {
@@ -16,13 +17,18 @@ export const getAllInterviews = async () => {
 
 export const getInterviewById = async (id: string) => {
   try {
-    const query = `SELECT * FROM interview WHERE id = $1 OR readable_slug = $1`;
-    const { rows } = await pool.query(query, [id]);
-    
+    let query, values;
+    if (validateUUID(id)) {
+      query = `SELECT * FROM interview WHERE id = $1`;
+      values = [id];
+    } else {
+      query = `SELECT * FROM interview WHERE readable_slug = $1`;
+      values = [id];
+    }
+    const { rows } = await pool.query(query, values);
     return rows[0] || null;
   } catch (error) {
     console.error(error);
-    
     return [];
   }
 };
