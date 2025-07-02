@@ -53,6 +53,9 @@ export async function POST(req: Request, res: Response) {
       }
     });
 
+    // Force organization_id to the required UUID
+    cleanPayload.organization_id = "db83fef1-ef0b-4625-8521-62760a88687a";
+
     // Debug logging for payload and JSON fields
     logger.info("Payload before DB insert:", JSON.stringify(cleanPayload));
     ["questions", "quotes", "respondents"].forEach((key) => {
