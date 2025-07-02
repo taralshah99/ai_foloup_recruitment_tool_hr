@@ -263,11 +263,11 @@ function InterviewHome({ params, searchParams }: Props) {
                       "bg-transparent shadow-none relative text-xs text-indigo-600 px-1 h-7 hover:scale-110 hover:bg-transparent"
                     }
                     variant={"secondary"}
+                    aria-label="Share interview"
                     onClick={(event) => {
                       event.stopPropagation();
                       openSharePopup();
                     }}
-                    aria-label="Share interview"
                   >
                     <Share2 size={16} />
                   </Button>
@@ -286,11 +286,11 @@ function InterviewHome({ params, searchParams }: Props) {
                 <TooltipTrigger asChild>
                   <Button
                     className="bg-transparent shadow-none text-xs text-indigo-600 px-0 h-7 hover:scale-110 relative"
+                    aria-label="Preview interview"
                     onClick={(event) => {
                       event.stopPropagation();
                       seeInterviewPreviewPage();
                     }}
-                    aria-label="Preview interview"
                   >
                     <Eye />
                   </Button>
@@ -311,11 +311,11 @@ function InterviewHome({ params, searchParams }: Props) {
                 <TooltipTrigger asChild>
                   <Button
                     className="bg-transparent shadow-none text-xs text-indigo-600 px-0 h-7 hover:scale-110 relative"
+                    aria-label="Change theme color"
                     onClick={(event) => {
                       event.stopPropagation();
                       setShowColorPicker(!showColorPicker);
                     }}
-                    aria-label="Change theme color"
                   >
                     <Palette size={19} />
                   </Button>
@@ -336,12 +336,12 @@ function InterviewHome({ params, searchParams }: Props) {
                 <TooltipTrigger asChild>
                   <Button
                     className="bg-transparent shadow-none text-xs text-indigo-600 px-0 h-7 hover:scale-110 relative"
+                    aria-label="Edit interview"
                     onClick={(event) => {
                       router.push(
                         `/interviews/${params.interviewId}?edit=true`,
                       );
                     }}
-                    aria-label="Edit interview"
                   >
                     <Pencil size={16} />
                   </Button>
@@ -380,8 +380,8 @@ function InterviewHome({ params, searchParams }: Props) {
                     className={`ms-3 my-auto ${
                       isActive ? "bg-indigo-600" : "bg-[#E6E7EB]"
                     }`}
-                    onCheckedChange={handleToggle}
                     aria-label="Toggle interview active status"
+                    onCheckedChange={handleToggle}
                   />
                 </>
               )}
