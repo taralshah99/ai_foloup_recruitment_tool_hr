@@ -1,4 +1,5 @@
 import { nanoid } from "nanoid";
+import { v4 as uuidv4 } from "uuid";
 import { NextResponse } from "next/server";
 import { createInterview } from "@/services/interviews.service";
 import { logger } from "@/lib/logger";
@@ -7,7 +8,7 @@ const base_url = process.env.NEXT_PUBLIC_LIVE_URL;
 
 export async function POST(req: Request, res: Response) {
   try {
-    const url_id = nanoid();
+    const url_id = uuidv4();
     const url = `${base_url}/call/${url_id}`;
     const body = await req.json();
 
