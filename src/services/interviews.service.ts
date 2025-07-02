@@ -26,9 +26,11 @@ export const getInterviewById = async (id: string) => {
       values = [id];
     }
     const { rows } = await pool.query(query, values);
+    
     return rows[0] || null;
   } catch (error) {
     console.error(error);
+    
     return [];
   }
 };
