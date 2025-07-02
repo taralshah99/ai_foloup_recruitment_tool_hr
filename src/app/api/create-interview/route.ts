@@ -45,6 +45,13 @@ export async function POST(req: Request, res: Response) {
       }
     });
 
+    // Ensure JSON fields are stringified for DB
+    ["questions", "quotes", "respondents"].forEach((key) => {
+      if (cleanPayload[key] !== undefined && cleanPayload[key] !== null) {
+        cleanPayload[key] = JSON.stringify(cleanPayload[key]);
+      }
+    });
+
     // Debug logging for payload and JSON fields
     logger.info("Payload before DB insert:", JSON.stringify(cleanPayload));
     ["questions", "quotes", "respondents"].forEach((key) => {
