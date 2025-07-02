@@ -45,6 +45,13 @@ export async function POST(req: Request, res: Response) {
       }
     });
 
+    // Debug logging for payload and JSON fields
+    logger.info("Payload before DB insert:", JSON.stringify(cleanPayload));
+    ["questions", "quotes", "respondents"].forEach((key) => {
+      logger.info(`Field '${key}' type: ${typeof cleanPayload[key]}`);
+      logger.info(`Field '${key}' value: ${JSON.stringify(cleanPayload[key])}`);
+    });
+
     const newInterview = await createInterview({
       ...cleanPayload,
       url: url,
