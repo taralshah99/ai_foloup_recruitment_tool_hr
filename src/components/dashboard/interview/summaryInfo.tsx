@@ -337,7 +337,7 @@ function SummaryInfo({ responses, interview }: SummaryProps) {
         <div className="w-[85%] h-[60%] flex flex-col items-center justify-center">
           <div className="flex flex-col items-center">
             <Image
-              src="/no-responses.png"
+              src="/No-Responses.png"
               alt="logo"
               width={270}
               height={270}

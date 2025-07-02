@@ -28,6 +28,7 @@ const metadata = {
     locale: "en_US",
     type: "website",
   },
+  metadataBase: new URL(process.env.NEXT_PUBLIC_LIVE_URL || "http://localhost:3000"),
 };
 
 export default function RootLayout({

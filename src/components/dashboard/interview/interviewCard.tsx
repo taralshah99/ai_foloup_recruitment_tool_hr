@@ -148,6 +148,7 @@ function InterviewCard({ name, interviewerId, id, url, readableSlug }: Props) {
               className="text-xs text-indigo-600 px-1 h-6"
               variant={"secondary"}
               onClick={handleJumpToInterview}
+              aria-label="Open interview"
             >
               <ArrowUpRight size={16} />
             </Button>
@@ -161,6 +162,7 @@ function InterviewCard({ name, interviewerId, id, url, readableSlug }: Props) {
                 event.preventDefault();
                 copyToClipboard();
               }}
+              aria-label="Copy interview link"
             >
               {copied ? <CopyCheck size={16} /> : <Copy size={16} />}
             </Button>

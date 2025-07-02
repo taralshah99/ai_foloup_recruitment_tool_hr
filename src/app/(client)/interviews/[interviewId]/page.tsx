@@ -267,6 +267,7 @@ function InterviewHome({ params, searchParams }: Props) {
                       event.stopPropagation();
                       openSharePopup();
                     }}
+                    aria-label="Share interview"
                   >
                     <Share2 size={16} />
                   </Button>
@@ -289,6 +290,7 @@ function InterviewHome({ params, searchParams }: Props) {
                       event.stopPropagation();
                       seeInterviewPreviewPage();
                     }}
+                    aria-label="Preview interview"
                   >
                     <Eye />
                   </Button>
@@ -313,6 +315,7 @@ function InterviewHome({ params, searchParams }: Props) {
                       event.stopPropagation();
                       setShowColorPicker(!showColorPicker);
                     }}
+                    aria-label="Change theme color"
                   >
                     <Palette size={19} />
                   </Button>
@@ -338,6 +341,7 @@ function InterviewHome({ params, searchParams }: Props) {
                         `/interviews/${params.interviewId}?edit=true`,
                       );
                     }}
+                    aria-label="Edit interview"
                   >
                     <Pencil size={16} />
                   </Button>
@@ -377,6 +381,7 @@ function InterviewHome({ params, searchParams }: Props) {
                       isActive ? "bg-indigo-600" : "bg-[#E6E7EB]"
                     }`}
                     onCheckedChange={handleToggle}
+                    aria-label="Toggle interview active status"
                   />
                 </>
               )}
