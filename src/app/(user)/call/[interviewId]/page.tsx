@@ -101,9 +101,22 @@ function InterviewInterface({ params }: Props) {
         } else {
           setInterviewNotFound(true);
         }
-      } catch (error) {
-        console.error(error);
+      } catch (error: any) {
+        console.error("Error fetching interview:", error);
         setInterviewNotFound(true);
+        
+        // Store error details for display
+        if (error.response?.data?.error) {
+          setErrorDetails({
+            title: error.response.data.error,
+            description: error.response.data.details || "Please try again later or contact support if the issue persists."
+          });
+        } else if (error.message?.includes("API key")) {
+          setErrorDetails({
+            title: "Service Configuration Error",
+            description: "The interview service is temporarily unavailable. Please contact support."
+          });
+        }
       }
     };
 
@@ -111,14 +124,22 @@ function InterviewInterface({ params }: Props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const [errorDetails, setErrorDetails] = useState<{
+    title: string;
+    description: string;
+  }>({
+    title: "Invalid URL",
+    description: "The interview link you're trying to access is invalid. Please check the URL and try again."
+  });
+
   return (
     <div>
       <div className="hidden md:block p-8 mx-auto form-container">
         {!interview ? (
           interviewNotFound ? (
             <PopUpMessage
-              title="Invalid URL"
-              description="The interview link you're trying to access is invalid. Please check the URL and try again."
+              title={errorDetails.title}
+              description={errorDetails.description}
               image="/invalid-url.png"
             />
           ) : (
@@ -148,8 +169,9 @@ function InterviewInterface({ params }: Props) {
           Powered by{" "}
           <a
             className="font-bold underline"
-            href="www.folo-up.co"
+            href="https://folo-up.co"
             target="_blank"
+            rel="noopener noreferrer"
           >
             Folo<span className="text-indigo-600">Up</span>
           </a>
