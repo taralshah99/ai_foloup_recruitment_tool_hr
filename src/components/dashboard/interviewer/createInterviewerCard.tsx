@@ -114,8 +114,8 @@ const createInterviewerCard = () => {
                   className="border-b-2 focus:outline-none border-gray-500 px-2 py-0.5 ml-3 w-[12.5rem]"
                   placeholder="e.g. Empathetic Bob"
                   value={name}
-                  onChange={(e) => setName(e.target.value)}
                   aria-labelledby="interviewer-name-label"
+                  onChange={(e) => setName(e.target.value)}
                 />
               </div>
               <h3 className="text-lg mt-3 font-medium">Interviewer Settings</h3>

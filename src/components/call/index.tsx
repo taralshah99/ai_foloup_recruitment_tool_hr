@@ -372,17 +372,17 @@ function Call({ interview }: InterviewProps) {
                           value={email}
                           className="h-fit mx-auto py-2 border-2 rounded-md w-[75%] self-center px-2 border-gray-400 text-sm font-normal"
                           placeholder="Enter your email address"
-                          onChange={(e) => setEmail(e.target.value)}
                           aria-label="Email address input"
+                          onChange={(e) => setEmail(e.target.value)}
                         />
                       </div>
                       <div className="flex justify-center">
                         <input
                           value={name}
                           className="h-fit mb-4 mx-auto py-2 border-2 rounded-md w-[75%] self-center px-2 border-gray-400 text-sm font-normal"
-                          placeholder="Enter your first name"
+                          placeholder="Enter your name"
+                          aria-label="Name input"
                           onChange={(e) => setName(e.target.value)}
-                          aria-label="First name input"
                         />
                       </div>
                     </div>

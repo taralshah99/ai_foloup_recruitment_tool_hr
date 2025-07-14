@@ -13,6 +13,7 @@ export async function POST(req: Request, res: Response) {
   try {
     if (!process.env.RETELL_API_KEY) {
       logger.error("Retell API key is not configured");
+
       return NextResponse.json(
         {
           error: "Service configuration error. Please contact support.",
@@ -29,6 +30,7 @@ export async function POST(req: Request, res: Response) {
 
     if (!interviewer) {
       logger.error(`Interviewer not found with ID: ${interviewerId}`);
+
       return NextResponse.json(
         {
           error: "Invalid interview configuration",
@@ -55,6 +57,7 @@ export async function POST(req: Request, res: Response) {
     } catch (retellError) {
       const errorMessage = retellError instanceof Error ? retellError.message : 'Unknown error';
       logger.error("Retell API error:", errorMessage);
+
       return NextResponse.json(
         {
           error: "Failed to initialize interview",
@@ -66,6 +69,7 @@ export async function POST(req: Request, res: Response) {
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : 'Unknown error';
     logger.error("Unexpected error in register-call:", errorMessage);
+
     return NextResponse.json(
       {
         error: "An unexpected error occurred",
