@@ -23,22 +23,22 @@ const questionCard = ({
   onDelete,
 }: QuestionCardProps) => {
   return (
-    <>
-      <Card className=" shadow-md mb-5 pb-3 ">
-        <CardContent className="p-2 mx-5">
-          <div className="flex flex-row justify-between mt-3 items-baseline ">
-            <CardTitle className="text-lg">Question {questionNumber}</CardTitle>
-            <div className="flex flex-row items-start space-x-1">
-              <h3 className="text-base font-semibold mr-2">Depth Level: </h3>
+    <Card className="shadow-md mb-4">
+      <CardContent className="p-4">
+        <div className="flex flex-row justify-between items-start">
+          <CardTitle className="text-lg">Question {questionNumber}</CardTitle>
+          <div className="flex flex-row items-center gap-4">
+            <div className="flex items-center gap-2">
+              <h3 className="text-base font-semibold">Depth Level:</h3>
               <TooltipProvider>
                 <Tooltip>
                   <TooltipTrigger asChild>
                     <Button
-                      className={`text-xs h-7  hover:bg-indigo-800  ${
+                      className={`text-xs h-7 hover:bg-indigo-800 ${
                         questionData?.follow_up_count == 1
                           ? "bg-indigo-600"
                           : "opacity-50"
-                      } `}
+                      }`}
                       onClick={() =>
                         onQuestionChange(questionData.id, {
                           ...questionData,
@@ -54,16 +54,15 @@ const questionCard = ({
                   </TooltipContent>
                 </Tooltip>
               </TooltipProvider>
-
               <TooltipProvider>
                 <Tooltip>
                   <TooltipTrigger asChild>
                     <Button
-                      className={`text-xs h-7  hover:bg-indigo-800 ${
+                      className={`text-xs h-7 hover:bg-indigo-800 ${
                         questionData?.follow_up_count == 2
                           ? "bg-indigo-600"
                           : "opacity-50"
-                      } `}
+                      }`}
                       onClick={() =>
                         onQuestionChange(questionData.id, {
                           ...questionData,
@@ -79,16 +78,15 @@ const questionCard = ({
                   </TooltipContent>
                 </Tooltip>
               </TooltipProvider>
-
               <TooltipProvider>
                 <Tooltip>
                   <TooltipTrigger asChild>
                     <Button
-                      className={`text-xs h-7 hover:bg-indigo-800  ${
+                      className={`text-xs h-7 hover:bg-indigo-800 ${
                         questionData?.follow_up_count == 3
                           ? "bg-indigo-600"
                           : "opacity-50"
-                      } `}
+                      }`}
                       onClick={() =>
                         onQuestionChange(questionData.id, {
                           ...questionData,
@@ -100,42 +98,36 @@ const questionCard = ({
                     </Button>
                   </TooltipTrigger>
                   <TooltipContent className="bg-zinc-200">
-                    <p className="text-zinc-800">In-depth follow-up</p>
+                    <p className="text-zinc-800">Deep follow-up</p>
                   </TooltipContent>
                 </Tooltip>
               </TooltipProvider>
             </div>
-          </div>
-          <div className="flex flex-row items-center">
-            <textarea
-              value={questionData?.question}
-              className="h-fit mt-3 pt-1 border-2 rounded-md w-full px-2 border-gray-400"
-              placeholder="e.g. Can you tell me about a challenging project you've worked on?"
-              rows={3}
-              aria-label={`Question ${questionData.id}`}
-              onChange={(e) =>
-                onQuestionChange(questionData.id, {
-                  ...questionData,
-                  question: e.target.value,
-                })
-              }
-              onBlur={(e) =>
-                onQuestionChange(questionData.id, {
-                  ...questionData,
-                  question: e.target.value.trim(),
-                })
-              }
-            />
-            <Trash2
-              className="cursor-pointer ml-3"
-              color="red"
-              size={24}
+            <Button
+              variant="ghost"
+              className="text-red-500 hover:text-red-700 hover:bg-transparent p-0"
               onClick={() => onDelete(questionData.id)}
-            />
+            >
+              <Trash2 size={18} />
+            </Button>
           </div>
-        </CardContent>
-      </Card>
-    </>
+        </div>
+        <div className="flex flex-row items-center mt-4">
+          <textarea
+            value={questionData?.question}
+            className="w-full px-3 py-2 border-2 rounded-md border-gray-400 min-h-[80px] resize-y"
+            placeholder="e.g. Can you tell me about a challenging project you've worked on?"
+            aria-label={`Question ${questionNumber}`}
+            onChange={(e) =>
+              onQuestionChange(questionData.id, {
+                ...questionData,
+                question: e.target.value,
+              })
+            }
+          />
+        </div>
+      </CardContent>
+    </Card>
   );
 };
 export default questionCard;

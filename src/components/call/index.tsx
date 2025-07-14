@@ -522,42 +522,43 @@ function Call({ interview }: InterviewProps) {
             )}
 
             {isEnded && !isOldUser && (
-              <div className="w-fit min-w-[400px] max-w-[400px] mx-auto mt-2  border border-indigo-200 rounded-md p-2 m-2 bg-slate-50  absolute -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
-                <div>
-                  <div className="p-2 font-normal text-base mb-4 whitespace-pre-line">
-                    <CheckCircleIcon className="h-[2rem] w-[2rem] mx-auto my-4 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0 text-indigo-500 " />
-                    <p className="text-lg font-semibold text-center">
-                      {isStarted
-                        ? `Thank you for taking the time to participate in this interview`
-                        : "Thank you very much for considering."}
-                    </p>
-                    <p className="text-center">
-                      {"\n"}
-                      You can close this tab now.
-                    </p>
-                  </div>
+              <div className="fixed inset-0 flex items-center justify-center z-50 bg-white/80">
+                <div className="w-[400px] mx-auto border border-indigo-200 rounded-md p-6 bg-slate-50 shadow-lg">
+                  <div>
+                    <div className="font-normal text-base mb-4 whitespace-pre-line">
+                      <CheckCircleIcon className="h-[2rem] w-[2rem] mx-auto my-4 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0 text-indigo-500 " />
+                      <p className="text-lg font-semibold text-center">
+                        {isStarted
+                          ? `Thank you for taking the time to participate in this interview`
+                          : "Thank you very much for considering."}
+                      </p>
+                      <p className="text-center mt-2">
+                        You can close this tab now.
+                      </p>
+                    </div>
 
-                  {!isFeedbackSubmitted && (
-                    <AlertDialog
-                      open={isDialogOpen}
-                      onOpenChange={setIsDialogOpen}
-                    >
-                      <AlertDialogTrigger className="w-full flex justify-center">
-                        <Button
-                          className="bg-indigo-600 text-white h-10 mt-4 mb-4"
-                          onClick={() => setIsDialogOpen(true)}
-                        >
-                          Provide Feedback
-                        </Button>
-                      </AlertDialogTrigger>
-                      <AlertDialogContent>
-                        <FeedbackForm
-                          email={email}
-                          onSubmit={handleFeedbackSubmit}
-                        />
-                      </AlertDialogContent>
-                    </AlertDialog>
-                  )}
+                    {!isFeedbackSubmitted && (
+                      <AlertDialog
+                        open={isDialogOpen}
+                        onOpenChange={setIsDialogOpen}
+                      >
+                        <AlertDialogTrigger className="w-full flex justify-center">
+                          <Button
+                            className="bg-indigo-600 text-white h-10 mt-4 mb-4 w-full"
+                            onClick={() => setIsDialogOpen(true)}
+                          >
+                            Provide Feedback
+                          </Button>
+                        </AlertDialogTrigger>
+                        <AlertDialogContent className="max-w-[500px]">
+                          <FeedbackForm
+                            email={email}
+                            onSubmit={handleFeedbackSubmit}
+                          />
+                        </AlertDialogContent>
+                      </AlertDialog>
+                    )}
+                  </div>
                 </div>
               </div>
             )}
