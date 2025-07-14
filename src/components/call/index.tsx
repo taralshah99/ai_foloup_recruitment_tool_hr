@@ -538,25 +538,12 @@ function Call({ interview }: InterviewProps) {
                     </div>
 
                     {!isFeedbackSubmitted && (
-                      <AlertDialog
-                        open={isDialogOpen}
-                        onOpenChange={setIsDialogOpen}
+                      <Button
+                        className="bg-indigo-600 text-white h-10 mt-4 mb-4 w-full"
+                        onClick={() => setIsDialogOpen(true)}
                       >
-                        <AlertDialogTrigger className="w-full flex justify-center">
-                          <Button
-                            className="bg-indigo-600 text-white h-10 mt-4 mb-4 w-full"
-                            onClick={() => setIsDialogOpen(true)}
-                          >
-                            Provide Feedback
-                          </Button>
-                        </AlertDialogTrigger>
-                        <AlertDialogContent className="max-w-[500px]">
-                          <FeedbackForm
-                            email={email}
-                            onSubmit={handleFeedbackSubmit}
-                          />
-                        </AlertDialogContent>
-                      </AlertDialog>
+                        Provide Feedback
+                      </Button>
                     )}
                   </div>
                 </div>
@@ -595,6 +582,17 @@ function Call({ interview }: InterviewProps) {
           <ArrowUpRightSquareIcon className="h-[1.5rem] w-[1.5rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0 text-indigo-500 " />
         </a>
       </div>
+      {/* Feedback Dialog */}
+      {!isFeedbackSubmitted && (
+        <AlertDialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+          <AlertDialogContent className="max-w-[500px]">
+            <FeedbackForm
+              email={email}
+              onSubmit={handleFeedbackSubmit}
+            />
+          </AlertDialogContent>
+        </AlertDialog>
+      )}
     </div>
   );
 }
