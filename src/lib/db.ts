@@ -1,10 +1,16 @@
 import { Pool } from 'pg';
+import { logger } from './logger';
 
-// const caCert = fs.readFileSync('/home/azureuser/techifysolutions-ssl.crt').toString();
+if (!process.env.AZURE_POSTGRES_CONNECTION_STRING) {
+  logger.error('Database connection string is not configured');
+  throw new Error('Database connection string is not configured');
+}
 
 const pool = new Pool({
   connectionString: process.env.AZURE_POSTGRES_CONNECTION_STRING,
-  ssl: false as any,
+  ssl: {
+    rejectUnauthorized: false // Required for Azure Database for PostgreSQL
+  }
 });
 
 export default pool;

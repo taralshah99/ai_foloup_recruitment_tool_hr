@@ -66,11 +66,12 @@ function InterviewHome({ params, searchParams }: Props) {
 
   const seeInterviewPreviewPage = () => {
     if (interview?.url) {
+      const baseUrl = process.env.NEXT_PUBLIC_LIVE_URL || "https://hr-foloup-prod.techifysolutions.com";
       const url = interview?.readable_slug
-        ? `https://${interview?.readable_slug}`
+        ? `${baseUrl}/call/${interview.readable_slug}`
         : interview.url.startsWith("http")
           ? interview.url
-          : `https://${interview.url}`;
+          : `${baseUrl}/call/${interview.id}`;
       window.open(url, "_blank");
     } else {
       console.error("Interview URL is null or undefined.");

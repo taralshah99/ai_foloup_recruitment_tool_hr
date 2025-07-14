@@ -67,7 +67,7 @@
     "retell-client-js-sdk": "^2.0.0",
     "retell-sdk": "^4.19.0",
     "shadcn-ui": "^0.4.1",
-    "sharp": "^0.33.2",
+    "sharp": "^0.33.5",
     "sonner": "^1.4.41",
     "tailwind-merge": "^2.1.0",
     "tailwind-scrollbar-hide": "^1.1.7",

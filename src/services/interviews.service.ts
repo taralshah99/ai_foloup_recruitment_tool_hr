@@ -1,6 +1,7 @@
 "use server";
 import pool from "@/lib/db";
 import { validate as validateUUID } from "uuid";
+import { logger } from "@/lib/logger";
 
 export const getAllInterviews = async () => {
   try {
@@ -9,14 +10,19 @@ export const getAllInterviews = async () => {
     
     return rows || [];
   } catch (error) {
-    console.error(error);
-    
-    return [];
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+    logger.error('Error fetching all interviews:', errorMessage);
+    throw new Error('Failed to fetch interviews');
   }
 };
 
 export const getInterviewById = async (id: string) => {
   try {
+    // Validate input
+    if (!id) {
+      throw new Error('Interview ID is required');
+    }
+
     let query, values;
     if (validateUUID(id)) {
       query = `SELECT * FROM interview WHERE id = $1`;
@@ -25,13 +31,25 @@ export const getInterviewById = async (id: string) => {
       query = `SELECT * FROM interview WHERE readable_slug = $1`;
       values = [id];
     }
+
     const { rows } = await pool.query(query, values);
     
-    return rows[0] || null;
-  } catch (error) {
-    console.error(error);
+    if (!rows || rows.length === 0) {
+      throw new Error('Interview not found');
+    }
+
+    return rows[0];
+  } catch (error: any) {
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+    logger.error('Error fetching interview by ID:', errorMessage);
     
-    return [];
+    if (error.message === 'Interview not found') {
+      throw new Error('Interview not found');
+    } else if (error.message?.includes('connection')) {
+      throw new Error('Database connection error');
+    } else {
+      throw new Error('Failed to fetch interview');
+    }
   }
 };
 
