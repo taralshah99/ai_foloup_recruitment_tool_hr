@@ -351,6 +351,7 @@ function Call({ interview }: InterviewProps) {
                           className="h-fit mx-auto py-2 border-2 rounded-md w-[75%] self-center px-2 border-gray-400 text-sm font-normal"
                           placeholder="Enter your email address"
                           onChange={(e) => setEmail(e.target.value)}
+                          aria-label="Email address input"
                         />
                       </div>
                       <div className="flex justify-center">
@@ -359,6 +360,7 @@ function Call({ interview }: InterviewProps) {
                           className="h-fit mb-4 mx-auto py-2 border-2 rounded-md w-[75%] self-center px-2 border-gray-400 text-sm font-normal"
                           placeholder="Enter your first name"
                           onChange={(e) => setName(e.target.value)}
+                          aria-label="First name input"
                         />
                       </div>
                     </div>

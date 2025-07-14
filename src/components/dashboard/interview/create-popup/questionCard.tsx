@@ -110,8 +110,9 @@ const questionCard = ({
             <textarea
               value={questionData?.question}
               className="h-fit mt-3 pt-1 border-2 rounded-md w-full px-2 border-gray-400"
-              placeholder="e.g. Can you tell me about a challenging project you’ve worked on?"
+              placeholder="e.g. Can you tell me about a challenging project you've worked on?"
               rows={3}
+              aria-label={`Question ${questionData.id}`}
               onChange={(e) =>
                 onQuestionChange(questionData.id, {
                   ...questionData,

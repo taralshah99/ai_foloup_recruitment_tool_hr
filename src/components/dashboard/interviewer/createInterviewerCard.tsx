@@ -108,13 +108,14 @@ const createInterviewerCard = () => {
             </div>
             <div className="flex flex-col justify-center items-start ml-4">
               <div className="flex flex-row justify-center items-center">
-                <h3 className="text-lg font-medium">Name</h3>
+                <h3 className="text-lg font-medium" id="interviewer-name-label">Name</h3>
                 <input
                   type="text"
                   className="border-b-2 focus:outline-none border-gray-500 px-2 py-0.5 ml-3 w-[12.5rem]"
                   placeholder="e.g. Empathetic Bob"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
+                  aria-labelledby="interviewer-name-label"
                 />
               </div>
               <h3 className="text-lg mt-3 font-medium">Interviewer Settings</h3>
