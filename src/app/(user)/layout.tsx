@@ -35,27 +35,21 @@ export default function RootLayout({
         <link rel="icon" href="/browser-user-icon.ico" />
       </head>
       <body className={inter.className}>
-        <div className="flex flex-row h-screen">
-          <div className="ml-[200px] pt-[64px] h-full overflow-y-auto flex-grow">
-            {children}
-          </div>
-        </div>
-          <Providers>
-            {children}
-            <Toaster
-              toastOptions={{
-                classNames: {
-                  toast: "bg-white border-2 border-indigo-400",
-                  title: "text-black",
-                  description: "text-red-400",
-                  actionButton: "bg-indigo-400",
-                  cancelButton: "bg-orange-400",
-                  closeButton: "bg-lime-400",
-                },
-              }}
-            />
-          </Providers>
-
+        <Providers>
+          {children}
+          <Toaster
+            toastOptions={{
+              classNames: {
+                toast: "bg-white border-2 border-indigo-400",
+                title: "text-black",
+                description: "text-red-400",
+                actionButton: "bg-indigo-400",
+                cancelButton: "bg-orange-400",
+                closeButton: "bg-lime-400",
+              },
+            }}
+          />
+        </Providers>
       </body>
     </html>
   );
