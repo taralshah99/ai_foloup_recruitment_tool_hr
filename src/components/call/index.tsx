@@ -298,14 +298,14 @@ function Call({ interview }: InterviewProps) {
   }, [isEnded]);
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-100">
+    <div className="min-h-screen bg-gray-100">
       {isStarted && <TabSwitchWarning />}
-      <div className="bg-white rounded-md md:w-[80%] w-[90%]">
-        <Card className="h-[88vh] rounded-lg border-2 border-b-4 border-r-4 border-black text-xl font-bold transition-all  md:block dark:border-white ">
+      <div className="bg-white rounded-md md:w-[80%] w-[90%] mx-auto">
+        <Card className="h-[88vh] rounded-lg border-2 border-b-4 border-r-4 border-black text-xl font-bold transition-all md:block dark:border-white">
           <div>
-            <div className="m-4 h-[15px] rounded-lg border-[1px]  border-black">
+            <div className="m-4 h-[15px] rounded-lg border-[1px] border-black">
               <div
-                className=" bg-indigo-600 h-[15px] rounded-lg"
+                className="bg-indigo-600 h-[15px] rounded-lg"
                 style={{
                   width: isEnded
                     ? "100%"
@@ -326,7 +326,7 @@ function Call({ interview }: InterviewProps) {
               {!isEnded && (
                 <div className="flex mt-2 flex-row">
                   <AlarmClockIcon
-                    className="text-indigo-600 h-[1rem] w-[1rem] rotate-0 scale-100  dark:-rotate-90 dark:scale-0 mr-2 font-bold"
+                    className="text-indigo-600 h-[1rem] w-[1rem] rotate-0 scale-100 dark:-rotate-90 dark:scale-0 mr-2 font-bold"
                     style={{ color: interview.theme_color }}
                   />
                   <div className="text-sm font-normal">
@@ -343,7 +343,7 @@ function Call({ interview }: InterviewProps) {
               )}
             </CardHeader>
             {!isStarted && !isEnded && !isOldUser && (
-              <div className="flex justify-center items-center h-[calc(100%-120px)]">
+              <div className="flex items-center justify-center h-[calc(100%-200px)]">
                 <div className="w-[400px] mx-auto border border-indigo-200 rounded-md p-6 bg-slate-50">
                   {interview?.logo_url && (
                     <div className="p-1 flex justify-center">
@@ -398,33 +398,14 @@ function Call({ interview }: InterviewProps) {
                     >
                       {!Loading ? "Start Interview" : <MiniLoader />}
                     </Button>
-                    <AlertDialog>
-                      <AlertDialogTrigger asChild>
-                        <Button
-                          className="bg-white border text-black h-10 rounded-lg"
-                          style={{ borderColor: interview.theme_color }}
-                          disabled={Loading}
-                        >
-                          Exit
-                        </Button>
-                      </AlertDialogTrigger>
-                      <AlertDialogContent>
-                        <AlertDialogHeader>
-                          <AlertDialogTitle>Are you sure?</AlertDialogTitle>
-                        </AlertDialogHeader>
-                        <AlertDialogFooter>
-                          <AlertDialogCancel>Cancel</AlertDialogCancel>
-                          <AlertDialogAction
-                            className="bg-indigo-600 hover:bg-indigo-800"
-                            onClick={async () => {
-                              await onEndCallClick();
-                            }}
-                          >
-                            Continue
-                          </AlertDialogAction>
-                        </AlertDialogFooter>
-                      </AlertDialogContent>
-                    </AlertDialog>
+                    <Button
+                      className="bg-white border text-black h-10 rounded-lg"
+                      style={{ borderColor: interview.theme_color }}
+                      disabled={Loading}
+                      onClick={onEndCallClick}
+                    >
+                      Exit
+                    </Button>
                   </div>
                 </div>
               </div>

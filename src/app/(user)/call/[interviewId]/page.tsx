@@ -134,7 +134,7 @@ function InterviewInterface({ params }: Props) {
 
   return (
     <div>
-      <div className="hidden md:block p-8 mx-auto form-container">
+      <div className="hidden md:block mx-auto">
         {!interview ? (
           interviewNotFound ? (
             <PopUpMessage
@@ -155,14 +155,14 @@ function InterviewInterface({ params }: Props) {
           <Call interview={interview} />
         )}
       </div>
-      <div className=" md:hidden flex flex-col items-center md:h-[0px] justify-center  my-auto">
-        <div className="mt-48 px-3">
+      <div className="md:hidden flex flex-col items-center justify-center min-h-screen">
+        <div className="px-3">
           <p className="text-center my-5 text-md font-semibold">
             {interview?.name}
           </p>
           <p className="text-center text-gray-600 my-5">
             Please use a PC to respond to the interview. Apologies for any
-            inconvenience caused.{" "}
+            inconvenience caused.
           </p>
         </div>
         <div className="text-center text-md font-semibold mr-2 my-5">
