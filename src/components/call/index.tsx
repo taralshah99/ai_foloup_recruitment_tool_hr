@@ -343,8 +343,8 @@ function Call({ interview }: InterviewProps) {
               )}
             </CardHeader>
             {!isStarted && !isEnded && !isOldUser && (
-              <div className="w-fit min-w-[400px] max-w-[400px] mx-auto mt-2  border border-indigo-200 rounded-md p-2 m-2 bg-slate-50">
-                <div>
+              <div className="flex justify-center items-center h-[calc(100%-120px)]">
+                <div className="w-[400px] mx-auto border border-indigo-200 rounded-md p-6 bg-slate-50">
                   {interview?.logo_url && (
                     <div className="p-1 flex justify-center">
                       <Image
@@ -357,81 +357,75 @@ function Call({ interview }: InterviewProps) {
                     </div>
                   )}
                   <div className="p-2 font-normal text-sm mb-4 whitespace-pre-line">
-                    {interview?.description}
+                    <p className="mb-4">{interview?.description}</p>
                     <p className="font-bold text-sm">
-                      {"\n"}Ensure your volume is up and grant microphone access
-                      when prompted. Additionally, please make sure you are in a
-                      quiet environment.
+                      Ensure your volume is up and grant microphone access when prompted. Additionally, please make sure you are in a quiet environment.
                       {"\n\n"}Note: Tab switching will be recorded.
                     </p>
                   </div>
                   {!interview?.is_anonymous && (
-                    <div className="flex flex-col gap-2 justify-center">
-                      <div className="flex justify-center">
-                        <input
-                          value={email}
-                          className="h-fit mx-auto py-2 border-2 rounded-md w-[75%] self-center px-2 border-gray-400 text-sm font-normal"
-                          placeholder="Enter your email address"
-                          aria-label="Email address input"
-                          onChange={(e) => setEmail(e.target.value)}
-                        />
-                      </div>
-                      <div className="flex justify-center">
-                        <input
-                          value={name}
-                          className="h-fit mb-4 mx-auto py-2 border-2 rounded-md w-[75%] self-center px-2 border-gray-400 text-sm font-normal"
-                          placeholder="Enter your name"
-                          aria-label="Name input"
-                          onChange={(e) => setName(e.target.value)}
-                        />
-                      </div>
+                    <div className="flex flex-col gap-4 justify-center">
+                      <input
+                        value={email}
+                        className="h-fit py-2 border-2 rounded-md w-full px-2 border-gray-400 text-sm font-normal"
+                        placeholder="Enter your email address"
+                        aria-label="Email address input"
+                        onChange={(e) => setEmail(e.target.value)}
+                      />
+                      <input
+                        value={name}
+                        className="h-fit py-2 border-2 rounded-md w-full px-2 border-gray-400 text-sm font-normal"
+                        placeholder="Enter your name"
+                        aria-label="Name input"
+                        onChange={(e) => setName(e.target.value)}
+                      />
                     </div>
                   )}
-                </div>
-                <div className="w-[80%] flex flex-row mx-auto justify-center items-center align-middle">
-                  <Button
-                    className="min-w-20 h-10 rounded-lg flex flex-row justify-center mb-8"
-                    style={{
-                      backgroundColor: interview.theme_color ?? "#4F46E5",
-                      color: isLightColor(interview.theme_color ?? "#4F46E5")
-                        ? "black"
-                        : "white",
-                    }}
-                    disabled={
-                      Loading ||
-                      (!interview?.is_anonymous && (!isValidEmail || !name))
-                    }
-                    onClick={startConversation}
-                  >
-                    {!Loading ? "Start Interview" : <MiniLoader />}
-                  </Button>
-                  <AlertDialog>
-                    <AlertDialogTrigger>
-                      <Button
-                        className="bg-white border ml-2 text-black min-w-15 h-10 rounded-lg flex flex-row justify-center mb-8"
-                        style={{ borderColor: interview.theme_color }}
-                        disabled={Loading}
-                      >
-                        Exit
-                      </Button>
-                    </AlertDialogTrigger>
-                    <AlertDialogContent>
-                      <AlertDialogHeader>
-                        <AlertDialogTitle>Are you sure?</AlertDialogTitle>
-                      </AlertDialogHeader>
-                      <AlertDialogFooter>
-                        <AlertDialogCancel>Cancel</AlertDialogCancel>
-                        <AlertDialogAction
-                          className="bg-indigo-600 hover:bg-indigo-800"
-                          onClick={async () => {
-                            await onEndCallClick();
-                          }}
+                  <div className="flex gap-2 mt-6">
+                    <Button
+                      className="flex-1 h-10 rounded-lg"
+                      style={{
+                        backgroundColor: interview.theme_color ?? "#4F46E5",
+                        color: isLightColor(interview.theme_color ?? "#4F46E5")
+                          ? "black"
+                          : "white",
+                      }}
+                      disabled={
+                        Loading ||
+                        (!interview?.is_anonymous && (!isValidEmail || !name))
+                      }
+                      onClick={startConversation}
+                    >
+                      {!Loading ? "Start Interview" : <MiniLoader />}
+                    </Button>
+                    <AlertDialog>
+                      <AlertDialogTrigger asChild>
+                        <Button
+                          className="bg-white border text-black h-10 rounded-lg"
+                          style={{ borderColor: interview.theme_color }}
+                          disabled={Loading}
                         >
-                          Continue
-                        </AlertDialogAction>
-                      </AlertDialogFooter>
-                    </AlertDialogContent>
-                  </AlertDialog>
+                          Exit
+                        </Button>
+                      </AlertDialogTrigger>
+                      <AlertDialogContent>
+                        <AlertDialogHeader>
+                          <AlertDialogTitle>Are you sure?</AlertDialogTitle>
+                        </AlertDialogHeader>
+                        <AlertDialogFooter>
+                          <AlertDialogCancel>Cancel</AlertDialogCancel>
+                          <AlertDialogAction
+                            className="bg-indigo-600 hover:bg-indigo-800"
+                            onClick={async () => {
+                              await onEndCallClick();
+                            }}
+                          >
+                            Continue
+                          </AlertDialogAction>
+                        </AlertDialogFooter>
+                      </AlertDialogContent>
+                    </AlertDialog>
+                  </div>
                 </div>
               </div>
             )}
@@ -524,36 +518,45 @@ function Call({ interview }: InterviewProps) {
             {isEnded && !isOldUser && (
               <div className="fixed inset-0 flex items-center justify-center z-50 bg-white/80">
                 <div className="w-[400px] mx-auto border border-indigo-200 rounded-md p-6 bg-slate-50 shadow-lg">
-                  <div>
-                    <div className="font-normal text-base mb-4 whitespace-pre-line">
-                      <CheckCircleIcon className="h-[2rem] w-[2rem] mx-auto my-4 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0 text-indigo-500 " />
-                      <p className="text-lg font-semibold text-center">
-                        {isStarted
-                          ? `Thank you for taking the time to participate in this interview`
-                          : "Thank you very much for considering."}
-                      </p>
-                      <p className="text-center mt-2">
-                        You can close this tab now.
-                      </p>
-                    </div>
-
-                    {!isFeedbackSubmitted && (
-                      <Button
-                        className="bg-indigo-600 text-white h-10 mt-4 mb-4 w-full"
-                        onClick={() => setIsDialogOpen(true)}
-                      >
-                        Provide Feedback
-                      </Button>
-                    )}
+                  <div className="font-normal text-base mb-4 whitespace-pre-line">
+                    <CheckCircleIcon className="h-[2rem] w-[2rem] mx-auto my-4 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0 text-indigo-500" />
+                    <p className="text-lg font-semibold text-center">
+                      {isStarted
+                        ? `Thank you for taking the time to participate in this interview`
+                        : "Thank you very much for considering."}
+                    </p>
+                    <p className="text-center mt-2">
+                      You can close this tab now.
+                    </p>
                   </div>
+
+                  {!isFeedbackSubmitted && (
+                    <div className="mt-4">
+                      {isDialogOpen ? (
+                        <div className="bg-white rounded-lg p-4">
+                          <FeedbackForm
+                            email={email}
+                            onSubmit={handleFeedbackSubmit}
+                          />
+                        </div>
+                      ) : (
+                        <Button
+                          className="bg-indigo-600 text-white h-10 w-full"
+                          onClick={() => setIsDialogOpen(true)}
+                        >
+                          Provide Feedback
+                        </Button>
+                      )}
+                    </div>
+                  )}
                 </div>
               </div>
             )}
             {isOldUser && (
-              <div className="w-fit min-w-[400px] max-w-[400px] mx-auto mt-2  border border-indigo-200 rounded-md p-2 m-2 bg-slate-50  absolute -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
+              <div className="w-fit min-w-[400px] max-w-[400px] mx-auto mt-2 border border-indigo-200 rounded-md p-2 m-2 bg-slate-50 absolute -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
                 <div>
                   <div className="p-2 font-normal text-base mb-4 whitespace-pre-line">
-                    <CheckCircleIcon className="h-[2rem] w-[2rem] mx-auto my-4 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0 text-indigo-500 " />
+                    <CheckCircleIcon className="h-[2rem] w-[2rem] mx-auto my-4 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0 text-indigo-500" />
                     <p className="text-lg font-semibold text-center">
                       You have already responded in this interview or you are
                       not eligible to respond. Thank you!
@@ -573,26 +576,15 @@ function Call({ interview }: InterviewProps) {
           href="https://folo-up.co/"
           target="_blank"
         >
-          <div className="text-center text-md font-semibold mr-2  ">
+          <div className="text-center text-md font-semibold mr-2">
             Powered by{" "}
             <span className="font-bold">
               Folo<span className="text-indigo-600">Up</span>
             </span>
           </div>
-          <ArrowUpRightSquareIcon className="h-[1.5rem] w-[1.5rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0 text-indigo-500 " />
+          <ArrowUpRightSquareIcon className="h-[1.5rem] w-[1.5rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0 text-indigo-500" />
         </a>
       </div>
-      {/* Feedback Dialog */}
-      {!isFeedbackSubmitted && (
-        <AlertDialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-          <AlertDialogContent className="max-w-[500px]">
-            <FeedbackForm
-              email={email}
-              onSubmit={handleFeedbackSubmit}
-            />
-          </AlertDialogContent>
-        </AlertDialog>
-      )}
     </div>
   );
 }
