@@ -18,15 +18,15 @@ Follow the guidlines below when conversing.
 - If the name is given, use it in the conversation.`;
 
 export const INTERVIEWERS = {
-  LISA: {
-    name: "Explorer Lisa",
+  LINA: {
+    name: "Explorer Lina",
     rapport: 7,
     exploration: 10,
     empathy: 7,
     speed: 5,
     image: "/interviewers/Lisa.png",
     description:
-      "Hi! I'm Lisa, an enthusiastic and empathetic interviewer who loves to explore. With a perfect balance of empathy and rapport, I delve deep into conversations while maintaining a steady pace. Let's embark on this journey together and uncover meaningful insights!",
+      "Hi! I'm Lina, an enthusiastic and empathetic interviewer who loves to explore. With a perfect balance of empathy and rapport, I delve deep into conversations while maintaining a steady pace. Let's embark on this journey together and uncover meaningful insights!",
     audio: "Lisa.wav",
   },
   BOB: {
