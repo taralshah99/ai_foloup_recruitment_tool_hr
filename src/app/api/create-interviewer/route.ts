@@ -25,16 +25,16 @@ export async function GET(res: NextRequest) {
       ],
     });
 
-    // Create Lisa
+    // Create Lina
     const newFirstAgent = await retellClient.agent.create({
       response_engine: { llm_id: newModel.llm_id, type: "retell-llm" },
-      voice_id: "11labs-Chloe",
-      agent_name: "Lisa",
+      voice_id: "11labs-Monika",
+      agent_name: "Lina",
     });
 
     const newInterviewer = await createInterviewer({
       agent_id: newFirstAgent.agent_id,
-      ...INTERVIEWERS.LISA,
+      ...INTERVIEWERS.LINA,
     });
 
     // Create Bob
