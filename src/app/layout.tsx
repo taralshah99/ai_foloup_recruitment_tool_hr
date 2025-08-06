@@ -6,7 +6,7 @@ import Providers from "@/components/providers";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "FoloUp",
+  title: "Techify",
   description: "AI-powered interview platform",
   metadataBase: new URL(process.env.NEXT_PUBLIC_LIVE_URL || "https://hr-foloup-prod.techifysolutions.com"),
 };

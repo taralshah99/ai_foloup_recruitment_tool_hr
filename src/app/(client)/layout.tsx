@@ -12,12 +12,12 @@ import { usePathname } from "next/navigation";
 const inter = Inter({ subsets: ["latin"] });
 
 const metadata = {
-  title: "FoloUp",
+  title: "Techify",
   description: " AI-powered Interviews",
   openGraph: {
-    title: "FoloUp",
+    title: "Techify",
     description: "AI-powered Interviews",
-    siteName: "FoloUp",
+    siteName: "Techify",
     images: [
       {
         url: "/foloup.png",
@@ -43,7 +43,7 @@ export default function RootLayout({
       <head>
         <title>{metadata.title}</title>
         <meta name="description" content={metadata.description} />
-        <link rel="icon" href="/browser-client-icon.ico" />
+        <link rel="icon" href="/techify.ico" />
       </head>
       <body
         className={cn(
