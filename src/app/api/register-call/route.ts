@@ -9,6 +9,8 @@ const retellClient = new Retell({
 
 
 console.log("RETELL_API_KEY:", process.env.RETELL_API_KEY);
+logger.info("RETELL_API_KEY:", process.env.RETELL_API_KEY);
+
 export async function POST(req: Request, res: Response) {
   logger.info("register-call request received");
 
